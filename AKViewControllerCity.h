@@ -13,6 +13,7 @@
 
 @property (strong, nonatomic) IBOutlet UITableView* tableCity;
 @property (strong, nonatomic) IBOutlet UINavigationBar* navigationBar;
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView* indicatorLoad;
 
 -(IBAction)actionCancel:(UIBarButtonItem*)sender;
 

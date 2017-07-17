@@ -8,30 +8,59 @@
 
 #import "AKViewControllerCountry.h"
 #import "AKViewControllerCity.h"
+
+NSString* const AKViewControllerCountrySetDataNotification = @"AKViewControllerCountrySetDataNotification";
+
 @interface AKViewControllerCountry ()
 
 @end
 
 @implementation AKViewControllerCountry
 
+-(id) init {
+    
+    self = [super init];
+    
+    if (self) {
+        _dataIsSet = NO;
+    }
+    return self;
+}
+
 -(void)loadView {
     [super loadView];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(methodNotif:)
+                                                 name:AKViewControllerCountrySetDataNotification
+                                               object:nil];
+    
     self.arrayData = [[AKDataManager sharedManager] executeFetchRequestCountry];
     if ([self.arrayData count] == 0 ) {
-        [[AKDataManager sharedManager]request];
-        self.arrayData = [[AKDataManager sharedManager] executeFetchRequestCountry];
+        [self.indicatorLoad startAnimating];
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            
+            dispatch_sync(dispatch_get_main_queue(), ^{
+
+                [[AKDataManager sharedManager]request];
+                
+                self.dataIsSet = YES;
+                
+            });
+        });
     }
     self.navigationBar.topItem.title = @"Country";
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
+-(void) setDataIsSet:(BOOL)dataIsSet {
+    _dataIsSet = dataIsSet;
+    [[NSNotificationCenter defaultCenter] postNotificationName:AKViewControllerCountrySetDataNotification
+                                                        object:nil];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
+-(void) dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     
 }
 
@@ -70,6 +99,15 @@
     
     AKViewControllerCity* vc = [self.storyboard instantiateViewControllerWithIdentifier:@"VCCity"];
     [self presentViewController:vc animated:YES completion:nil];
+    
+}
+#pragma mark - method 
+
+-(void) methodNotif:(NSNotification*) notification {
+    
+    self.arrayData = [[AKDataManager sharedManager] executeFetchRequestCountry];
+    [self.indicatorLoad stopAnimating];
+    [self.tableViewCountry reloadData];
     
 }
 

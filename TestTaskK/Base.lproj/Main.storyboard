@@ -29,10 +29,13 @@
                                     <outlet property="delegate" destination="PSq-UN-ABK" id="6UT-mB-jIZ"/>
                                 </connections>
                             </tableView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="jyL-Mb-cXn">
+                                <rect key="frame" x="0.0" y="323" width="375" height="20"/>
+                            </activityIndicatorView>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VWp-e3-qsE">
                                 <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="DGY-6z-glX"/>
+                                    <constraint firstAttribute="height" constant="44" id="CBQ-mu-Cpu"/>
                                 </constraints>
                                 <items>
                                     <navigationItem title="Title" id="Sj2-5L-HVc"/>
@@ -41,17 +44,21 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Rlm-sl-hkY" firstAttribute="top" secondItem="VWp-e3-qsE" secondAttribute="bottom" id="7CK-kW-RXC"/>
-                            <constraint firstItem="KsC-4U-19F" firstAttribute="top" secondItem="Rlm-sl-hkY" secondAttribute="bottom" id="Aux-ps-8fA"/>
-                            <constraint firstAttribute="trailing" secondItem="VWp-e3-qsE" secondAttribute="trailing" id="BTl-M4-hRS"/>
-                            <constraint firstItem="Rlm-sl-hkY" firstAttribute="leading" secondItem="sfN-sy-u9f" secondAttribute="leading" id="Wi8-As-bOO"/>
-                            <constraint firstItem="VWp-e3-qsE" firstAttribute="leading" secondItem="sfN-sy-u9f" secondAttribute="leading" id="Wm7-dj-qPE"/>
-                            <constraint firstAttribute="trailing" secondItem="Rlm-sl-hkY" secondAttribute="trailing" id="bwW-bH-gj1"/>
-                            <constraint firstItem="Rlm-sl-hkY" firstAttribute="top" secondItem="VWp-e3-qsE" secondAttribute="bottom" id="gs4-Ij-sZ7"/>
-                            <constraint firstItem="VWp-e3-qsE" firstAttribute="top" secondItem="nLC-oM-o58" secondAttribute="bottom" id="jhZ-Yd-lI2"/>
+                            <constraint firstItem="VWp-e3-qsE" firstAttribute="leading" secondItem="sfN-sy-u9f" secondAttribute="leading" id="5sR-qF-DR3"/>
+                            <constraint firstItem="KsC-4U-19F" firstAttribute="top" secondItem="jyL-Mb-cXn" secondAttribute="bottom" constant="324" id="FIe-tL-tsr"/>
+                            <constraint firstItem="VWp-e3-qsE" firstAttribute="top" secondItem="nLC-oM-o58" secondAttribute="bottom" id="Hx3-zm-YQq"/>
+                            <constraint firstItem="KsC-4U-19F" firstAttribute="top" secondItem="Rlm-sl-hkY" secondAttribute="bottom" id="J2S-Ve-dXD"/>
+                            <constraint firstItem="jyL-Mb-cXn" firstAttribute="leading" secondItem="sfN-sy-u9f" secondAttribute="leading" id="Kgy-Vp-wEk"/>
+                            <constraint firstItem="jyL-Mb-cXn" firstAttribute="top" secondItem="VWp-e3-qsE" secondAttribute="bottom" constant="259" id="VuO-C3-hWY"/>
+                            <constraint firstAttribute="trailing" secondItem="jyL-Mb-cXn" secondAttribute="trailing" id="YFH-8e-Otc"/>
+                            <constraint firstAttribute="trailing" secondItem="VWp-e3-qsE" secondAttribute="trailing" id="e5H-6w-d4G"/>
+                            <constraint firstItem="Rlm-sl-hkY" firstAttribute="leading" secondItem="sfN-sy-u9f" secondAttribute="leading" id="gbK-ij-fgy"/>
+                            <constraint firstItem="Rlm-sl-hkY" firstAttribute="top" secondItem="VWp-e3-qsE" secondAttribute="bottom" id="xTQ-ZL-Bhe"/>
+                            <constraint firstAttribute="trailing" secondItem="Rlm-sl-hkY" secondAttribute="trailing" id="yJZ-Wk-FJa"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="indicatorLoad" destination="jyL-Mb-cXn" id="D8v-F0-a9F"/>
                         <outlet property="navigationBar" destination="VWp-e3-qsE" id="OG2-l4-gxH"/>
                         <outlet property="tableViewCountry" destination="Rlm-sl-hkY" id="ky9-Pw-10g"/>
                     </connections>
@@ -80,6 +87,10 @@
                                     <outlet property="delegate" destination="Q2W-Nr-yFb" id="DjL-Gc-Ntt"/>
                                 </connections>
                             </tableView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="e6o-wE-O4b">
+                                <rect key="frame" x="177" y="323" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R9r-rj-QJM">
                                 <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                                 <constraints>
@@ -110,6 +121,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="indicatorLoad" destination="e6o-wE-O4b" id="6cg-hN-0jD"/>
                         <outlet property="navigationBar" destination="R9r-rj-QJM" id="57i-K4-ahe"/>
                         <outlet property="tableCity" destination="tvY-js-Br8" id="sau-Df-LCn"/>
                     </connections>

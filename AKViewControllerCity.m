@@ -19,6 +19,7 @@
 -(void) loadView {
     [super loadView];
     
+    
     AKCountryEntity* country = [[AKDataManager sharedManager] countrySelected];
     self.navigationBar.topItem.title = @"City";
     self.arrayData = [[AKDataManager sharedManager] makeArrayFromSet:country.listCity];
@@ -26,6 +27,8 @@
 }
 
 - (void)viewDidLoad {
+    
+    [self.indicatorLoad startAnimating];
     [super viewDidLoad];
 }
 
@@ -49,6 +52,8 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    [self.indicatorLoad stopAnimating];
     
     static NSString * identifier = @"identifier";
     UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:identifier];

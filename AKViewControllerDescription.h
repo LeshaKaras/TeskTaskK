@@ -8,11 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+extern NSString* const AKViewControllerDescriptionSetDataNotification;
+
 @interface AKViewControllerDescription : UIViewController
 
 @property (strong, nonatomic) IBOutlet UILabel* lableNameCity;
 @property (strong, nonatomic) IBOutlet UILabel* descriptionCity;
 @property (strong, nonatomic) IBOutlet UINavigationBar* navigationBar;
+
+@property (assign, nonatomic) BOOL dataLoad;
 
 -(IBAction)actionCancel:(UIBarButtonItem*)sender;
 

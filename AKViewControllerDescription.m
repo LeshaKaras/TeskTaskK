@@ -10,35 +10,45 @@
 #import "AKViewControllerCity.h"
 #import "AKDataManager.h"
 
+NSString* const AKViewControllerDescriptionSetDataNotification = @"AKViewControllerDescriptionSetDataNotification";
+
 @interface AKViewControllerDescription ()
 
 @end
 
 @implementation AKViewControllerDescription
 
+- (id) init {
+    
+    self = [super init];
+    
+    if (self) {
+        _dataLoad = NO;
+    }
+    return self;
+}
 
 
 -(void) loadView {
     [super loadView];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(methodNotif:)
+                                                 name:AKViewControllerDescriptionSetDataNotification
+                                               object:nil];
+    
     [self setWaitingData];
     [self loadDataDesc];
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    
-}
-
--(void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    
+-(void) methodNotif:(NSNotification*) notification {
     [self dataSet];
+}
+
+-(void) setDataLoad:(BOOL)dataLoad {
+    _dataLoad = dataLoad;
+    [[NSNotificationCenter defaultCenter] postNotificationName:AKViewControllerDescriptionSetDataNotification object:nil];
+    
 }
 
 -(IBAction)actionCancel:(UIBarButtonItem*)sender {
@@ -57,6 +67,8 @@
         dispatch_sync(dispatch_get_main_queue(), ^{
             
             [[AKDataManager sharedManager] loadAPIDataForCity:manager.citySelected];
+            
+            self.dataLoad = YES;
         
         });
     });
@@ -78,6 +90,10 @@
     self.lableNameCity.text = cityObject.nameCity;
     self.descriptionCity.text = @"...";
     
+}
+
+-(void) dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "AKDataManager.h"
+#import "Reachability.h"
 
 extern NSString* const AKViewControllerCountrySetDataNotification;
 
@@ -19,5 +20,8 @@ extern NSString* const AKViewControllerCountrySetDataNotification;
 
 @property (assign, nonatomic) BOOL dataIsSet;
 @property (strong, nonatomic) NSArray* arrayData;
+
+@property (nonatomic) Reachability* hostReachability;
+@property (nonatomic) Reachability* internetReachability;
 
 @end

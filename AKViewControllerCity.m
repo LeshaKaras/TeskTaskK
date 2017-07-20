@@ -21,7 +21,7 @@
     
     
     AKCountryEntity* country = [[AKDataManager sharedManager] countrySelected];
-    self.navigationBar.topItem.title = [NSString stringWithFormat:@"%@:City",country.nameCountry];
+    self.navigationBar.topItem.title = [NSString stringWithFormat:@"%@ : Сities",country.nameCountry];
     self.arrayData = [[AKDataManager sharedManager] makeArrayFromSet:country.listCity];
     
 }
@@ -90,8 +90,7 @@
 
 -(IBAction)actionCancel:(UIBarButtonItem*)sende {
     
-    AKViewControllerCountry* vc = [self.storyboard instantiateViewControllerWithIdentifier:@"VCCountry"];
-    [self presentViewController:vc animated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void) alert {

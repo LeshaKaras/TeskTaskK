@@ -51,7 +51,8 @@ NSString* const AKViewControllerDescriptionSetDataNotification = @"AKViewControl
 }
 
 -(void) methodNotifDisc:(NSNotification*) notification {
-
+    
+    [self.indicator stopAnimating];
     [self dataSet];
 }
 
@@ -63,16 +64,13 @@ NSString* const AKViewControllerDescriptionSetDataNotification = @"AKViewControl
 
 -(IBAction)actionCancel:(UIBarButtonItem*)sender {
     
-    AKViewControllerCity* vc = [self.storyboard instantiateViewControllerWithIdentifier:@"VCCity"];
-    
-    [self presentViewController:vc animated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void) loadDataDesc {
     
-            AKDataManager* manager = [AKDataManager sharedManager];
-    
-            [[AKDataManager sharedManager] loadAPIDataForCity:manager.citySelected];
+    AKDataManager* manager = [AKDataManager sharedManager];
+    [[AKDataManager sharedManager] loadAPIDataForCity:manager.citySelected];
     
 }
 
@@ -89,7 +87,7 @@ NSString* const AKViewControllerDescriptionSetDataNotification = @"AKViewControl
     
     AKCityEntity* cityObject = [[AKDataManager sharedManager] citySelected];
     self.lableNameCity.text = cityObject.nameCity;
-    self.descriptionCity.text = @"...";
+    [self.indicator startAnimating];
     
 }
 

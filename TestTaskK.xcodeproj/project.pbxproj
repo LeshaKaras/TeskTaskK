@@ -19,6 +19,7 @@
 		7113C8EF1F123DAB00E7A158 /* AKCityEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 7113C8E91F123DAB00E7A158 /* AKCityEntity+CoreDataProperties.m */; };
 		7113C8F01F123DAB00E7A158 /* AKCountryEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 7113C8EB1F123DAB00E7A158 /* AKCountryEntity+CoreDataClass.m */; };
 		7113C8F11F123DAB00E7A158 /* AKCountryEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 7113C8ED1F123DAB00E7A158 /* AKCountryEntity+CoreDataProperties.m */; };
+		713197FE1F20D49B00E518E3 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 713197FD1F20D49B00E518E3 /* Reachability.m */; };
 		715307811F126CAA0033BDE9 /* AKViewControllerCity.m in Sources */ = {isa = PBXBuildFile; fileRef = 715307801F126CAA0033BDE9 /* AKViewControllerCity.m */; };
 		7163625E1F12B6F800F80D71 /* AKViewControllerDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = 7163625D1F12B6F800F80D71 /* AKViewControllerDescription.m */; };
 		71F5B3201F137FBF006F6CB8 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F5B3141F137FBF006F6CB8 /* AFHTTPSessionManager.m */; };
@@ -60,6 +61,8 @@
 		7113C8EB1F123DAB00E7A158 /* AKCountryEntity+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AKCountryEntity+CoreDataClass.m"; sourceTree = "<group>"; };
 		7113C8EC1F123DAB00E7A158 /* AKCountryEntity+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AKCountryEntity+CoreDataProperties.h"; sourceTree = "<group>"; };
 		7113C8ED1F123DAB00E7A158 /* AKCountryEntity+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AKCountryEntity+CoreDataProperties.m"; sourceTree = "<group>"; };
+		713197FC1F20D49B00E518E3 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = TestTaskK/Libs/Reachability/Reachability.h; sourceTree = "<group>"; };
+		713197FD1F20D49B00E518E3 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = TestTaskK/Libs/Reachability/Reachability.m; sourceTree = "<group>"; };
 		7153077F1F126CAA0033BDE9 /* AKViewControllerCity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKViewControllerCity.h; sourceTree = "<group>"; };
 		715307801F126CAA0033BDE9 /* AKViewControllerCity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKViewControllerCity.m; sourceTree = "<group>"; };
 		7163625C1F12B6F800F80D71 /* AKViewControllerDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKViewControllerDescription.h; sourceTree = "<group>"; };
@@ -190,9 +193,19 @@
 			name = CoreData;
 			sourceTree = "<group>";
 		};
+		713197FB1F20D48300E518E3 /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				713197FC1F20D49B00E518E3 /* Reachability.h */,
+				713197FD1F20D49B00E518E3 /* Reachability.m */,
+			);
+			name = Reachability;
+			sourceTree = "<group>";
+		};
 		7163625F1F12BB3800F80D71 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				713197FB1F20D48300E518E3 /* Reachability */,
 				71C61B801F12CD1E00EB057C /* UIKit+AFNetworking */,
 				716362621F12BBFF00F80D71 /* AFNetworking */,
 			);
@@ -343,6 +356,7 @@
 				71F5B33A1F137FCA006F6CB8 /* AFAutoPurgingImageCache.m in Sources */,
 				71F5B3411F137FCA006F6CB8 /* UIRefreshControl+AFNetworking.m in Sources */,
 				71F5B3241F137FBF006F6CB8 /* AFURLResponseSerialization.m in Sources */,
+				713197FE1F20D49B00E518E3 /* Reachability.m in Sources */,
 				7113C8EF1F123DAB00E7A158 /* AKCityEntity+CoreDataProperties.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

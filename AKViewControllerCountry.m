@@ -36,21 +36,14 @@ NSString* const AKViewControllerCountrySetDataNotification = @"AKViewControllerC
                                                object:nil];
     
     self.arrayData = [[AKDataManager sharedManager] executeFetchRequestCountry];
-    if ([self.arrayData count] == 0 ) {
-        [self.indicatorLoad startAnimating];
-        
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            
-            dispatch_sync(dispatch_get_main_queue(), ^{
-
-                [[AKDataManager sharedManager]request];
-                
-                self.dataIsSet = YES;
-                
-            });
-        });
-    }
     self.navigationBar.topItem.title = @"Country";
+   
+}
+
+-(void) viewDidLoad {
+    [super viewDidLoad];
+    [self rechability];
+    
 }
 
 -(void) setDataIsSet:(BOOL)dataIsSet {
@@ -60,7 +53,9 @@ NSString* const AKViewControllerCountrySetDataNotification = @"AKViewControllerC
 }
 
 -(void) dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:AKViewControllerCountrySetDataNotification
+                                                  object:nil];
     
 }
 
@@ -101,13 +96,120 @@ NSString* const AKViewControllerCountrySetDataNotification = @"AKViewControllerC
     [self presentViewController:vc animated:YES completion:nil];
     
 }
-#pragma mark - method 
+#pragma mark - methodNSNotification
 
 -(void) methodNotif:(NSNotification*) notification {
     
     self.arrayData = [[AKDataManager sharedManager] executeFetchRequestCountry];
     [self.indicatorLoad stopAnimating];
     [self.tableViewCountry reloadData];
+    
+}
+
+#pragma mark - Reachability
+
+- (void) rechability {
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(reachabilityChanged:)
+                                                 name:kReachabilityChangedNotification
+                                               object:nil];
+    
+    self.internetReachability = [Reachability reachabilityForInternetConnection];
+    [self.internetReachability startNotifier];
+    [self updateInterfaceWithReachability:self.internetReachability];
+}
+
+- (void) reachabilityChanged:(NSNotification *)note{
+    Reachability* curReach = [note object];
+    NSParameterAssert([curReach isKindOfClass:[Reachability class]]);
+    [self updateInterfaceWithReachability:curReach];
+}
+
+- (void) updateInterfaceWithReachability:(Reachability *)reachability {
+    
+    if (reachability == self.internetReachability){
+        
+        [self internetReachability:reachability];
+        
+    }
+}
+
+- (void) internetReachability:(Reachability *)reachability
+{
+    NetworkStatus netStatus = [reachability currentReachabilityStatus];
+    
+    switch (netStatus) {
+        case NotReachable:{
+            
+            if ([self.arrayData count] == 0) {
+                
+                dispatch_async(dispatch_get_main_queue(), ^ {
+                
+                [self showAlertNoInternetConnection];
+                    
+                });
+                
+            }
+            
+            NSLog(@"NOT WORK");
+            break;
+        }
+            
+        case ReachableViaWWAN:{
+            
+            [self dataRequestForProcessing];
+            
+            NSLog(@"WWAN WORK");
+            break;
+        }
+        case ReachableViaWiFi:{
+            
+            [self dataRequestForProcessing];
+            
+            NSLog(@"WIFI WORK");
+            break;
+        }
+    }
+}
+
+-(void) dataRequestForProcessing {
+    
+    if ([self.arrayData count] == 0 ) {
+        [self.indicatorLoad startAnimating];
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                
+                [[AKDataManager sharedManager]request];
+                
+                self.dataIsSet = YES;
+                
+            });
+        });
+    }
+    
+}
+
+#pragma mark - AlertView
+
+-(void) showAlertNoInternetConnection {
+    
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Error"
+                                                                   message:@"No internet connection"
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction * cancel = [UIAlertAction actionWithTitle:@"Cancel"
+                                                      style:UIAlertActionStyleCancel
+                                                    handler:^(UIAlertAction *  action) {
+        
+                                        [self dismissViewControllerAnimated:self completion:nil];
+            
+                                                    }];
+    
+    [alert addAction:cancel];
+    [self presentViewController:alert animated:YES completion:nil];
     
 }
 

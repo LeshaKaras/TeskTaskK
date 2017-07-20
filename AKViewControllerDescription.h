@@ -15,6 +15,7 @@ extern NSString* const AKViewControllerDescriptionSetDataNotification;
 @property (strong, nonatomic) IBOutlet UILabel* lableNameCity;
 @property (strong, nonatomic) IBOutlet UILabel* descriptionCity;
 @property (strong, nonatomic) IBOutlet UINavigationBar* navigationBar;
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView* indicator;
 
 @property (assign, nonatomic) BOOL dataLoad;
 

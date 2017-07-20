@@ -53,9 +53,7 @@ NSString* const AKViewControllerCountrySetDataNotification = @"AKViewControllerC
 }
 
 -(void) dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:AKViewControllerCountrySetDataNotification
-                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     
 }
 
@@ -149,25 +147,18 @@ NSString* const AKViewControllerCountrySetDataNotification = @"AKViewControllerC
                 [self showAlertNoInternetConnection];
                     
                 });
-                
             }
-            
-            NSLog(@"NOT WORK");
             break;
         }
             
         case ReachableViaWWAN:{
             
             [self dataRequestForProcessing];
-            
-            NSLog(@"WWAN WORK");
             break;
         }
         case ReachableViaWiFi:{
             
             [self dataRequestForProcessing];
-            
-            NSLog(@"WIFI WORK");
             break;
         }
     }

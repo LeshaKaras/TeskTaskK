@@ -14,6 +14,8 @@ extern NSString* const AKViewControllerCountrySetDataNotification;
 
 @interface AKViewControllerCountry : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
+
+
 @property (strong,nonatomic) IBOutlet UITableView* tableViewCountry;
 @property (strong,nonatomic) IBOutlet UINavigationBar* navigationBar;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView* indicatorLoad;

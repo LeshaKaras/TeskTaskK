@@ -32,21 +32,15 @@ NSString* const AKViewControllerDescriptionSetDataNotification = @"AKViewControl
 -(void) loadView {
     [super loadView];
     
+    
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(methodNotifDisc:)
                                                  name:AKViewControllerDescriptionSetDataNotification
                                                object:nil];
     
     [self setWaitingData];
-
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
-        dispatch_sync(dispatch_get_main_queue(), ^{
-    
-    [self loadDataDesc];
-            
-    });
-});
+    [self rechability];
     
 }
 
@@ -94,5 +88,74 @@ NSString* const AKViewControllerDescriptionSetDataNotification = @"AKViewControl
 -(void) dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
+
+-(void) rechability {
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(reachabilityChanged:)
+                                                 name:kReachabilityChangedNotification
+                                               object:nil];
+    
+    self.internetReachability = [Reachability reachabilityForInternetConnection];
+    [self.internetReachability startNotifier];
+    [self updateInterfaceWithReachability:self.internetReachability];
+}
+
+- (void) reachabilityChanged:(NSNotification *)note{
+    Reachability* curReach = [note object];
+    NSParameterAssert([curReach isKindOfClass:[Reachability class]]);
+    [self updateInterfaceWithReachability:curReach];
+}
+
+- (void) updateInterfaceWithReachability:(Reachability *)reachability {
+    
+    if (reachability == self.internetReachability){
+        
+        [self internetReachability:reachability];
+        
+    }
+}
+
+- (void) internetReachability:(Reachability *)reachability
+{
+    NetworkStatus netStatus = [reachability currentReachabilityStatus];
+    
+    switch (netStatus) {
+        case NotReachable:{
+            
+            if ([self.descriptionCity.text isEqualToString:@""]) {
+                self.descriptionCity.text = @"No internet connection";
+                [self.indicator stopAnimating];
+            }
+            break;
+        }
+            
+        case ReachableViaWWAN:{
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    
+                    [self loadDataDesc];
+                    
+                });
+            });
+            break;
+        }
+        case ReachableViaWiFi:{
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    
+                    [self loadDataDesc];
+                    
+                });
+            });
+            break;
+        }
+    }
+}
+
 
 @end

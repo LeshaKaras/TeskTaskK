@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AKViewControllerCountry.h"
+#import "Reachability.h"
 
 extern NSString* const AKViewControllerDescriptionSetDataNotification;
 
@@ -16,6 +18,7 @@ extern NSString* const AKViewControllerDescriptionSetDataNotification;
 @property (strong, nonatomic) IBOutlet UILabel* descriptionCity;
 @property (strong, nonatomic) IBOutlet UINavigationBar* navigationBar;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView* indicator;
+@property (nonatomic) Reachability* internetReachability;
 
 @property (assign, nonatomic) BOOL dataLoad;
 

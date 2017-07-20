@@ -21,7 +21,7 @@
     
     
     AKCountryEntity* country = [[AKDataManager sharedManager] countrySelected];
-    self.navigationBar.topItem.title = @"City";
+    self.navigationBar.topItem.title = [NSString stringWithFormat:@"%@:City",country.nameCountry];
     self.arrayData = [[AKDataManager sharedManager] makeArrayFromSet:country.listCity];
     
 }
@@ -73,6 +73,7 @@
 #pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     AKCityEntity* object = [self.arrayData objectAtIndex:indexPath.row];
     

@@ -33,15 +33,25 @@ NSString* const AKViewControllerDescriptionSetDataNotification = @"AKViewControl
     [super loadView];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(methodNotif:)
+                                             selector:@selector(methodNotifDisc:)
                                                  name:AKViewControllerDescriptionSetDataNotification
                                                object:nil];
     
     [self setWaitingData];
+
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        dispatch_sync(dispatch_get_main_queue(), ^{
+    
     [self loadDataDesc];
+            
+    });
+});
+    
 }
 
--(void) methodNotif:(NSNotification*) notification {
+-(void) methodNotifDisc:(NSNotification*) notification {
+
     [self dataSet];
 }
 
@@ -60,24 +70,15 @@ NSString* const AKViewControllerDescriptionSetDataNotification = @"AKViewControl
 
 - (void) loadDataDesc {
     
-    AKDataManager* manager = [AKDataManager sharedManager];
+            AKDataManager* manager = [AKDataManager sharedManager];
     
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            
             [[AKDataManager sharedManager] loadAPIDataForCity:manager.citySelected];
-            
-            self.dataLoad = YES;
-        
-        });
-    });
+    
 }
 
 - (void) dataSet {
     
     AKDataManager* manager = [AKDataManager sharedManager];
-    
     self.descriptionCity.text = manager.descCity;
     
 }

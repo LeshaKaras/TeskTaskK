@@ -8,6 +8,7 @@
 
 #import "AKDataManager.h"
 
+
 @implementation AKDataManager
 
 +(AKDataManager*) sharedManager {
@@ -173,6 +174,9 @@
             
             AKDataManager* manager = [AKDataManager sharedManager];
             manager.descCity = desc;
+            
+            AKViewControllerDescription* obj = [[AKViewControllerDescription alloc]init];
+            obj.dataLoad = YES;
 
         } failure:^(NSURLSessionDataTask * task, NSError * error) {
             NSLog(@"error: %@", error);

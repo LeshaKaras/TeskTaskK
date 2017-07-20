@@ -11,6 +11,7 @@
 #import "AKCityEntity+CoreDataClass.h"
 #import "AKCountryEntity+CoreDataClass.h"
 #import "AFNetworking.h"
+#import "AKViewControllerDescription.h"
 
 
 @interface AKDataManager : NSObject
